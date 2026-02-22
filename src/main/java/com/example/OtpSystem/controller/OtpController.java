@@ -10,10 +10,9 @@ import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/api/otp")
 public class OtpController {
 
@@ -24,20 +23,10 @@ public class OtpController {
     private OtpRepository otpRepository;
 
     /**
-     * Serve the OTP HTML page
-     * GET /api/otp/page
-     */
-    @GetMapping("/page")
-    public String otpPage() {
-        return "otp";  // This will serve otp.html from templates folder
-    }
-
-    /**
      * Generate and send OTP
      * POST /api/otp/generate
      */
     @PostMapping("/generate")
-    @ResponseBody
     public ResponseEntity<ApiResponse> generateOtp(@Valid @RequestBody OtpRequestDto request) {
         try {
             String otp = otpService.generateOtp(request.getEmail());
@@ -59,7 +48,6 @@ public class OtpController {
      * POST /api/otp/verify
      */
     @PostMapping("/verify")
-    @ResponseBody
     public ResponseEntity<ApiResponse> verifyOtp(@Valid @RequestBody OtpVerifyDto request) {
         boolean isValid = otpService.verifyOtp(request.getEmail(), request.getOtp());
 
@@ -78,7 +66,6 @@ public class OtpController {
      * GET /api/otp/validity?email=user@example.com
      */
     @GetMapping("/validity")
-    @ResponseBody
     public ResponseEntity<ApiResponse> checkValidity(@RequestParam String email) {
         long remainingSeconds = otpService.getRemainingValiditySeconds(email);
 
@@ -98,7 +85,6 @@ public class OtpController {
     }
 
     @GetMapping("/test-db")
-    @ResponseBody
     public ResponseEntity<ApiResponse> testDatabase() {
         try {
             long count = otpRepository.count();

@@ -3,18 +3,18 @@ spring.application.name=OtpSystem
 # Email Configuration
 spring.mail.host = smtp.gmail.com
 spring.mail.port = 587
-spring.mail.username = regularguy2108@gmail.com
-spring.mail.password = dasd mvmu szhc joea
+spring.mail.username =
+spring.mail.password =
 
 spring.mail.properties.mail.smtp.auth = true
 spring.mail.properties.mail.smtp.starttls.enable = true
 spring.mail.properties.mail.smtp.starttls.required = true
 
 # Database Configuration
-spring.datasource.url = jdbc:postgresql://localhost:5432/mailing_system
+spring.datasource.url =
 spring.datasource.driverClassName = org.postgresql.Driver
-spring.datasource.username = postgres
-spring.datasource.password = 2108
+spring.datasource.username =
+spring.datasource.password =
 
 # JPA Configuration
 spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
