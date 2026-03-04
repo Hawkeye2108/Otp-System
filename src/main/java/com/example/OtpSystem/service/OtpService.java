@@ -47,7 +47,6 @@ public class OtpService {
         Otp otp = new Otp(email, otpCode, now, expiryTime);
         otpRepository.save(otp);
 
-        // Schedule email to be sent after 20 seconds
         scheduleOtpEmail(email, otpCode);
 
         return otpCode;

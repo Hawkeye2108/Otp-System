@@ -5,10 +5,15 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Value;
+import sendinblue.ApiClient;
+import sendinblue.ApiException;
+import sendinblue.Configuration;
 import sibApi.TransactionalEmailsApi;
 import sibModel.SendSmtpEmail;
-import sibApi.ApiClient;
-import sibApi.Configuration;
+import sibModel.SendSmtpEmailSender;
+import sibModel.SendSmtpEmailTo;
+
+import java.util.List;
 
 @Service
 public class EmailService {
@@ -22,7 +27,7 @@ public class EmailService {
     @Value("${brevo.api.key}")
     private String apiKey;
 
-    public void sendMail(String to, String subject, String body){
+    public void sendMail(String to, String subject, String body) throws ApiException {
 //        SimpleMailMessage mail = new SimpleMailMessage();
 //        mail.setFrom(fromEmail);
 //        mail.setTo(to);
@@ -39,7 +44,7 @@ public class EmailService {
         SendSmtpEmail email = new SendSmtpEmail();
 
         email.setSubject(subject);
-        email.setHtmlContent("<html><body>" + body + "</body></html>");
+        email.setHtmlContent(body);
         email.setTo(List.of(new SendSmtpEmailTo().email(to)));
         email.setSender(new SendSmtpEmailSender()
                 .email("regularguy2108@gmail.com")
